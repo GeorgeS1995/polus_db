@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Форма добавления нового типа изделия</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <div id="form_set">
+        {{ formset.management_form }}
+        {% for form in formset %}
+        <table>
+            {{ form }}
+        </table>
+        {% endfor %}
+        </div>
+        <div id="empty_form" style="display:none">
+        <table class='no_error'>
+        {{ formset.empty_form.as_table }}
+        </table>
+        </div>
+        <input type="button" onclick="AddCharForm()" class="btn btn-light" value="Добавить характеристику" id="add_char">
+        <input type="button" onclick="RemoveCharForm()" class="btn btn-light" value="Убрать характеристику" id="remove_char">
+        <input id="btn_submit" class="btn btn-light" type="submit" value="Сохранить">
+    </form>
+{% endblock %}

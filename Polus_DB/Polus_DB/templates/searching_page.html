@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Поиск детали в БД НИИ Полюс</h1>
+<form action="{% url 'result' %}" method="get">
+    <div class="input-group">
+        <input id="search" name="q" type="text" class="form-control" placeholder="Поиск" required>
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-light">Поиск</button>
+        </span>
+    </div>
+</form>
+{% block result %}{% endblock %}
+{% endblock %}

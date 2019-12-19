@@ -1,0 +1,16 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    caption-side: bottom;
+    text-align: center;
+}
+
+td {
+    vertical-align: middle;
+    text-align: center;
+}

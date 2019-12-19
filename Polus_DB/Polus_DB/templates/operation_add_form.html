@@ -1,0 +1,22 @@
+    <div>
+    <form class="allforms" method="POST" action="/mainapp/add/operation/tech/form/{{ current_type }}/">
+    {% csrf_token %}
+    <table>
+        <tr>
+            {% for field in form %}
+            <td>
+            {{ field.errors }}
+            {{ field.label_tag }}
+            </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for field in form %}
+            <td>
+            {{ field }}
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
+    </form>
+    </div>

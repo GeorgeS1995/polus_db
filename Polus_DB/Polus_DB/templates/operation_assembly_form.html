@@ -1,0 +1,28 @@
+    <div>
+    <form class="allforms" method="POST" action="/mainapp/add/operation/assembly/form/{{ quantity_of_fields }}/">
+    {% csrf_token %}
+    <table>
+        <tr>
+            {% for field in form %}
+            <td>
+            {{ field.errors }}
+            {{ field.label_tag }}
+            </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for field in form %}
+            <td>
+            {{ field }}
+            </td>
+            {% endfor %}
+            <td>
+            <button type="button" onclick="changeFormAfterbutton({{ quantity_of_fields }}, 1)" class="btn btn-light">+</button>
+            {% if quantity_of_fields > 1 %}
+            <button type="button" onclick="changeFormAfterbutton({{ quantity_of_fields }}, -1)" class="btn btn-light">-</button>
+            {% endif %}
+            </td>
+        </tr>
+    </table>
+    </form>
+    </div>

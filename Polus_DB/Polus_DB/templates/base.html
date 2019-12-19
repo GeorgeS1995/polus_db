@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% block title %}<title>Polus DB</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Добавление дополнительного статического CSS файла -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="{% static 'js/custom_tools.js' %}"></script>
+  <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+      <ul class="sidebar-nav">
+          {% if user.is_authenticated %}
+          <li>Вы вошли как: {{ user.get_username }}</li>
+          {% else %}
+          {% endif %}
+          <li><a href="{% url 'index' %}">Главная страница</a></li>
+          {% if user.is_authenticated %}
+          <li>Внести данные</li>
+          <ul>
+              <li><a href="{% url 'type_product_add_form' %}">Завести новый тип изделия</a></li>
+              <li><a href="{% url 'operation_menu' %}">Провести операции</a></li>
+          </ul>
+          <li><a href="{% url 'search' %}">Поиск изделия</a></li>
+          <li><a href="">Выгрузить отчет</a></li>
+          <li><a href="{% url 'logout'%}?next={{request.path}}">Выход</a></li>
+          {% else %}
+          <li><a href="{% url 'login'%}?next={{request.path}}">Войти</a></li>
+          {% endif %}
+      </ul>
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+      {% block pagination %}
+      {% if product_lists|length > 1 %}
+      <div class="pagination">
+          <span class="page-links">
+              {% if product_lists.has_previous %}
+                  <a href="?page={{ product_lists.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Назад</a>
+              {% endif %}
+              <span class="page-current">
+                  Страница {{ product_lists.number }} из {{ product_lists.paginator.num_pages }}.
+              </span>
+              {% if product_lists.has_next %}
+                  <a href="?page={{ product_lists.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Вперед</a>
+              {% endif %}
+          </span>
+      </div>
+      {% endif %}
+      {% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

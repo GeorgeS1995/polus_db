@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Главная страница базы данных НИИ Полюс</h1>
+
+<h2>Dynamic content</h2>
+
+  <p>Список последних операций</p>
+  <table cellspacing="50" cellpadding="10" border="2" width="98%">
+      <tr>
+          <td>Серийный номер</td>
+          <td>Тип</td>
+          <td>Операция</td>
+          <td>Дата начала операции</td>
+          <td>Дата окончания операции</td>
+          <td>Причина брака</td>
+          <td>Выполнил</td>
+      </tr>
+     {% for operation in operations %}
+      <tr>
+          <td>{{ operation.product_id.serial_number }}</td>
+          <td>{{ operation.product_id.type_of_product_id.model }}</td>
+          <td>{{ operation.operation_history_id.type_of_operation_id.label }}</td>
+          <td>{{ operation.operation_history_id.start_date }}</td>
+          <td>{{ operation.operation_history_id.end_date }}</td>
+          <td>{{ operation.operation_history_id.type_of_defect_id.label }}</td>
+          <td>{{ operation.operation_history_id.employess_id_id }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+{% endblock %}

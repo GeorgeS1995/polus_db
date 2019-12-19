@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+{% if operations%}
+<h1>Страница изделия S/N: {{ product.serial_number }} </h1>
+
+{% if consist %}
+<h3>Состоит из изделий:</h3>
+{% block сonsists_of %}
+  <table cellspacing="50" cellpadding="10" border="2" width="98%">
+      <tr>
+          <td>ID изделия</td>
+          <td>Серийный номер</td>
+          <td>Тип изделия</td>
+      </tr>
+     {% for item in consist %}
+      <tr>
+          <td><a href = "/mainapp/search/product/{{ item.id }}/">{{ item.id }}</a></td>
+          <td>{{ item.serial_number }}</td>
+          <td>{{ item.model }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endif %}
+
+{% if in_composition %}
+<h3>Входит в состав изделий:</h3>
+{% block in_composition%}
+  <table cellspacing="50" cellpadding="10" border="2" width="98%">
+      <tr>
+          <td>ID изделия</td>
+          <td>Серийный номер</td>
+          <td>Тип изделия</td>
+          <td>Тип операции</td>
+          <td>Дата проведения</td>
+      </tr>
+     {% for item in in_composition %}
+      <tr>
+          <td><a href = "/mainapp/search/product/{{ item.id }}/">{{ item.id }}</a></td>
+          <td>{{ item.serial_number }}</td>
+          <td>{{ item.model }}</td>
+          <td>{{ item.label }}</td>
+          <td>{{ item.start_date }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endif %}
+
+<h3>История операций:</h3>
+{% block operation_history %}
+  <table cellspacing="50" cellpadding="10" border="2" width="98%">
+      <tr>
+          <td>ID операции</td>
+          <td>Операция</td>
+          <td>Дата начала операции</td>
+          <td>Дата окончания операции</td>
+          <td>Причина брака</td>
+          <td>Выполнил</td>
+      </tr>
+     {% for operation in operations %}
+      <tr>
+          <td><a id = "{{ operation.operation_history_id.id }}">{{ operation.operation_history_id.id }}</a></td>
+          <td>{{ operation.operation_history_id.type_of_operation_id.label }}</td>
+          <td>{{ operation.operation_history_id.start_date }}</td>
+          <td>{{ operation.operation_history_id.end_date }}</td>
+          <td>{{ operation.operation_history_id.type_of_defect_id.label }}</td>
+          <td>{{ operation.operation_history_id.employess_id_id }}</td>
+      </tr>
+      <script>
+        $("#{{ operation.operation_history_id.id }}").click(function() {
+        $.ajax({
+            url: '{{ operation.get_absolute_url }}',
+            success: function(data) {
+                $('#result').html(data);
+                }
+            });
+            });
+        </script>
+      {% endfor %}
+  </table>
+{% endblock %}
+<div id = "result"> </div>
+{% else %}
+    <h1>Страница изделия S/N: {{ product.serial_number }} </h1>
+    <h2>Не хватает прав для отображения информации</h2>
+{% endif %}
+{% endblock %}

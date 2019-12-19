@@ -1,0 +1,17 @@
+<h3>Характеристики после операции ID: {{ pk }}</h3>
+<table cellspacing="50" cellpadding="10" border="2" width="98%">
+      <tr>
+          <td>Параметр</td>
+          <td>Значение</td>
+          <td>Единица измерения</td>
+          <td>Текстовое описание параметра</td>
+      </tr>
+      {% for characteristic in characteristics %}
+      <tr>
+          <td>{{ characteristic.characteristic_of_product_id.label }}</td>
+          <td>{{ characteristic.value }}</td>
+          <td>{{ characteristic.characteristic_of_product_id.units }}</td>
+          <td>{{ characteristic.characteristic_of_product_id.description }}</td>
+      </tr>
+      {% endfor %}
+  </table>

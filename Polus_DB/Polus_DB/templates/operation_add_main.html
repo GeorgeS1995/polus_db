@@ -1,0 +1,13 @@
+{% extends "operation_menu.html" %}
+
+{% block chosen_operation %}
+<h1>Провести операции:</h1>
+    <div id="add_form"></div>
+    {% if default_product != 0 %}
+    <button id="plus" onclick="AddRow('form/{{ default_product }}/')" class="btn btn-light">+</button>
+    <button id="minus" onclick="DeleteRow()" class="btn btn-light">-</button>
+    <button id="save" onclick="SaveForms()" class="btn btn-light">Внести операции</button>
+    {% else %}
+    <h6>На учатстке еще не зарегистрирован тип изделий. Пройдите по ссылке "Завести новый тип изделия"</h6>
+    {% endif %}
+{% endblock %}

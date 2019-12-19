@@ -1,0 +1,13 @@
+{% extends "searching_page.html" %}
+{% block result %}
+    <h3>Результат поиска</h3>
+    {% if product_lists %}
+        {% for product in product_lists %}
+            <article>
+                <a href="{{ product.get_absolute_url }}"><p>{{ product.serial_number }}</p></a>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Не найдено изделий по вашему запросу<br>Попробуйте повторить запрос с другой формулировкой</p>
+    {% endif %}
+    {% endblock %}
